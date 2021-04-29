@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: PizzaShackAPI
   description: |
-    This is a RESTFul API for Pizza Shack online pizza delivery store update.
+    This is a RESTFul API for Pizza Shack online pizza delivery store.
   contact:
     name: John Doe
     url: http://www.pizzashack.com
