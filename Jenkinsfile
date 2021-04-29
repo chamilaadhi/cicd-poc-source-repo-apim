@@ -19,23 +19,33 @@ pipeline {
 
         stage('Setup Environment for APICTL') {
             steps {
-                sh """#!/bin/bash
-                ENVCOUNT=\$(apictl list envs --format {{.}} | wc -l)
-                if [ "\$ENVCOUNT" == "1" ]; then
-                    apictl add-env -e dev --apim https://localhost:9444
-                fi
-                """
+                sh '''
+                apictl remove env dev
+                apictl add env dev --apim https://localhost:9443 
+
+                '''
             }
         }
 
         stage('Deploy APIs To "Development" Environment') {
             steps {
-                sh """
-                apictl login dev -u devops -p devops
+                sh '''#!/bin/bash
+
+                apictl login dev -u admin -p admin
+
                 apis=$(apictl vcs status -e dev --format="{{ jsonPretty . }}" | jq -r '.API | .[] | .NickName')
                 echo "Updated APIs :"$apis
-                #apictl vcs deploy -e dev
-                """
+
+                rm -rf upload
+                mkdir upload
+                apiArray=($apis)
+                for i in "${apiArray[@]}"
+                do
+                echo "$i"
+                apictl bundle -s $i -d upload
+                #curl -u repouser:User@123 -X PUT http://localhost:8082/artifactory/myrepo/ -T PizzaShackAPI_1.0.0.zip
+                done
+                '''
             }
         }
     }   
