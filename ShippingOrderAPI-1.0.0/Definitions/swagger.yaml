@@ -1,0 +1,107 @@
+openapi: 3.0.1
+info:
+  title: ShippingOrderAPI
+  version: 1.0.0
+servers:
+ -
+  url: /
+security:
+ -
+  default: []
+paths:
+  /orders:
+    get:
+      parameters: []
+      responses:
+        "200":
+          description: ok
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: null
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+    post:
+      parameters: []
+      responses:
+        "200":
+          description: ok
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: null
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+  /orders/{orderId}:
+    get:
+      parameters:
+       -
+        name: orderId
+        in: path
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: string
+      responses:
+        "200":
+          description: ok
+      security:
+       -
+        default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: null
+      x-wso2-application-security:
+        security-types:
+         - oauth2
+        optional: false
+components:
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://test.com
+          scopes: {}
+x-wso2-auth-header: Authorization
+x-wso2-cors:
+  corsConfigurationEnabled: false
+  accessControlAllowOrigins:
+   - '*'
+  accessControlAllowCredentials: false
+  accessControlAllowHeaders:
+   - authorization
+   - Access-Control-Allow-Origin
+   - Content-Type
+   - SOAPAction
+   - apikey
+   - Internal-Key
+  accessControlAllowMethods:
+   - GET
+   - PUT
+   - POST
+   - DELETE
+   - PATCH
+   - OPTIONS
+x-wso2-production-endpoints:
+  urls:
+   - http://run.mocky.io/v3/88f55ec6-3256-4443-991e-a53d33b04b02
+  type: http
+x-wso2-sandbox-endpoints:
+  urls:
+   - http://run.mocky.io/v3/88f55ec6-3256-4443-991e-a53d33b04b02
+  type: http
+x-wso2-basePath: /shipping-order/1.0.0
+x-wso2-transports:
+ - http
+ - https
+x-wso2-response-cache:
+  enabled: false
+  cacheTimeoutInSeconds: 300
